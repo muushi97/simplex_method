@@ -25,6 +25,7 @@ public:
        ...      |     ...     | ...  ...       ...       ...  ...           | ...
        bv[M]    |     bvv[M]  |  -   t[M-1][0] t[M-1][1] ...  t[M-1][n+m-1] | loi[M]
          */
+        // 基底変数 (0 : z, 1:x(N+1), 2:x(N+2), ..., M:x(N+M))
         std::vector<int> bv(1 + M);                 // 基底変数 (pのインデックスと対応)
         bv[0] = 0;
         for (int i = 1; i < M + 1; i++) bv[i] = M + i;
@@ -34,8 +35,9 @@ public:
         for (int i = 1; i < M + 1; i++) bvv[i] = b[i - 1];
 
         std::vector<T> loi(1 + M);                  // 増加限界
+        for (int i = 0; i < M + 1; i++) loi[i] = 0;
 
-        std::vector<T> p(N + M);                    // シンプレックス基準
+        std::vector<T> p(N + M + 1);                // シンプレックス基準
         std::vector<std::vector<T>> t(M);           // たブロー
         for (int i = 0; i < A.size(); i++) {
             t[i].resize(N + M);
